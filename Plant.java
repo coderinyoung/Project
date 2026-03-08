@@ -1,11 +1,13 @@
 public abstract class Plant implements Comparable<Plant> {
+
+    //Variables
     private String name;
     private int daysToGrow;
     private int currentGrowth;
     private boolean watered = false;
     private double seedCost;
 
-
+    // Constructor
     public Plant(String name, int daysToGrow, double seedCost){
         this.name = name;
         this.daysToGrow = daysToGrow;
@@ -13,24 +15,27 @@ public abstract class Plant implements Comparable<Plant> {
         this.seedCost = seedCost;
     }
 
-    public Plant(String name){
-        this(name,5,10);
-    }
-
+    //Getter and Setters
     public String getName(){return name;}
     public int getDaysToGrow(){return daysToGrow;}
     public boolean getWaterStatus() {return watered;}
     public int getCurrentGrowth() {return currentGrowth;}
     public double getSeedCost() {return seedCost;}
 
+    public void setCurrentGrowth(int currentGrowth) {this.currentGrowth = currentGrowth;}
+
+
+    // Resets water
     public void resetWaterStatus(){
         watered = false;
     }
 
+    // Waters plant
     public void water(){
         watered = true;
     }
 
+    // Helps grow plant if watered
     public void grow(){
         if (watered){
             currentGrowth++;
@@ -38,21 +43,21 @@ public abstract class Plant implements Comparable<Plant> {
         }
     }
 
+    //Checks if ready to harvest
     public boolean isReadyToHarvest(){
         return currentGrowth >= daysToGrow;
     }
+
+    // create abstract method
     public abstract double harvest();
 
-    @Override
-    public String toString(){
-        return String.format("Name: %s | Watered: %b | Growth: %d/%d ", name,watered,currentGrowth,daysToGrow);
-    }
-
+    // Overides compareTo to base it on day to grow
     @Override
     public int compareTo(Plant other){
         return this.daysToGrow - other.daysToGrow;
     }
 
+    // Overides equals 
     @Override
     public boolean equals(Object other){
         if(this == other){
